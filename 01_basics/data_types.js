@@ -2,10 +2,10 @@
 
 //alert(3+3)// we are using Nodejs not browser
 
-console.log(3+3) 
-console.log("shaiv")
 
 let name="shaiv"
 let age="18"
-let isLoggedIn= false 
-console.log(age)
+let isLoggedIn= false
+
+console.log(typeof undefined) //output: undefined
+console.log(typeof null) //output: object
