@@ -712,26 +712,8 @@
                 </div>
             </div>
             <div class="contact-form">
-  <h3 style="color: var(--gold); margin-bottom: 2rem;">Send Us a Message</h3>
-  <form id="contactForm" action="https://formspree.io/f/mkgvykwd" method="POST">
-      <div class="form-group">
-          <label for="name">Your Name</label>
-          <input type="text" id="name" name="name" required>
-      </div>
-      <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" required>
-      </div>
-      <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
-      </div>
-      <button type="submit" class="submit-btn">Send Message</button>
-  </form>
-</div>
-
-
-                    <button type="submit">Send Message</button>
+                <h3 style="color: var(--gold); margin-bottom: 2rem;">Send Us a Message</h3>
+                <form id="contactForm">
                     <div class="form-group">
                         <label for="name">Your Name</label>
                         <input type="text" id="name" name="name" required>
@@ -786,7 +768,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Zamaar Real Estate. All rights reserved. | Designed with luxury in mind.</p>
+            <p>&copy; 2024 Zamaar Real Estate. All rights reserved. | Designed with luxury in mind.</p>
         </div>
     </footer>
 
@@ -817,6 +799,9 @@
             }
         });
 
+        // Store form submissions (in a real app, this would be sent to a server)
+        let formSubmissions = [];
+
         // Form submission handler
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -825,13 +810,135 @@
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
+            const timestamp = new Date().toISOString();
             
-            // Show success message (in a real application, this would send to a server)
-            alert(`Thank you for contacting Zamaar, ${name}! We'll respond to your message at ${email} within 24 hours.`);
+            // Create submission object
+            const submission = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                message: message,
+                timestamp: timestamp,
+                status: 'new'
+            };
+            
+            // Store the submission
+            formSubmissions.push(submission);
+            
+            // Log to console for development (remove in production)
+            console.log('New contact form submission:', submission);
+            console.log('All submissions:', formSubmissions);
+            
+            // Show success message
+            showSuccessMessage(name, email);
             
             // Reset form
             this.reset();
+            
+            // In a real application, you would send this data to your server:
+            // sendToServer(submission);
         });
+
+        // Success message function
+        function showSuccessMessage(name, email) {
+            // Create success modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: var(--dark-gray);
+                padding: 2rem;
+                border-radius: 15px;
+                border: 2px solid var(--gold);
+                text-align: center;
+                max-width: 400px;
+                color: white;
+                animation: fadeInUp 0.3s ease;
+            `;
+            
+            modalContent.innerHTML = `
+                <div style="color: var(--gold); font-size: 3rem; margin-bottom: 1rem;">✓</div>
+                <h3 style="color: var(--gold); margin-bottom: 1rem;">Message Sent Successfully!</h3>
+                <p style="margin-bottom: 1rem;">Thank you, ${name}! We've received your message and will respond to ${email} within 24 hours.</p>
+                <button onclick="this.closest('.modal-overlay').remove()" style="
+                    background: linear-gradient(45deg, var(--gold), var(--dark-gold));
+                    color: var(--black);
+                    border: none;
+                    padding: 0.8rem 2rem;
+                    border-radius: 25px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    transition: transform 0.2s ease;
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Close</button>
+            `;
+            
+            modal.className = 'modal-overlay';
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Auto-close after 5 seconds
+            setTimeout(() => {
+                if (document.contains(modal)) {
+                    modal.remove();
+                }
+            }, 5000);
+        }
+
+        // Function to get all submissions (for admin purposes)
+        function getAllSubmissions() {
+            return formSubmissions;
+        }
+
+        // Function to export submissions as CSV (for admin purposes)
+        function exportSubmissionsCSV() {
+            if (formSubmissions.length === 0) {
+                alert('No submissions to export');
+                return;
+            }
+            
+            const headers = ['ID', 'Name', 'Email', 'Message', 'Timestamp', 'Status'];
+            const csvContent = [
+                headers.join(','),
+                ...formSubmissions.map(sub => [
+                    sub.id,
+                    `"${sub.name}"`,
+                    sub.email,
+                    `"${sub.message.replace(/"/g, '""')}"`,
+                    sub.timestamp,
+                    sub.status
+                ].join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `zamaar-contacts-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Admin functions (call these in browser console)
+        window.zamaaarAdmin = {
+            getSubmissions: getAllSubmissions,
+            exportCSV: exportSubmissionsCSV,
+            clearSubmissions: () => {
+                formSubmissions = [];
+                console.log('All submissions cleared');
+            }
+        };
 
         // Animate elements on scroll
         const observerOptions = {
