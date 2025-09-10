@@ -1,326 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zamaar</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zamaar — Contact Us</title>
   <style>
-    /* === Your CSS unchanged === */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    :root {
-      --gold: #FFD700;
-      --dark-gold: #B8860B;
-      --black: #000000;
-      --dark-gray: #1a1a1a;
-      --light-gray: #2a2a2a;
-      --white: #ffffff;
-    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
-      background-color: var(--black);
-      color: var(--white);
-      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 2rem;
     }
-    nav {
-      position: fixed;
-      width: 100%;
-      background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 100%);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
-      padding: 1rem 0;
-      transition: all 0.3s ease;
+    .contact-container {
+      max-width: 600px;
+      margin: auto;
+      background: #1a1a1a;
+      padding: 2rem;
+      border-radius: 12px;
     }
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 2rem;
-    }
-    .logo {
-      font-size: 2rem;
-      font-weight: bold;
-      color: var(--gold);
-      text-decoration: none;
-      letter-spacing: 2px;
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
-      to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4); }
-    }
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-    }
-    .nav-links a {
-      color: var(--white);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      position: relative;
-      padding: 0.5rem 0;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--gold);
-      transition: width 0.3s ease;
-    }
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    .nav-links a:hover {
-      color: var(--gold);
-    }
-    .hero {
-      height: 100vh;
-      background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
-                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23000000" width="1920" height="1080"/><path fill="%23FFD700" opacity="0.1" d="M0,540 Q480,440 960,540 T1920,540 L1920,1080 L0,1080 Z"/></svg>');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-content {
+    h2 {
+      color: #FFD700;
       text-align: center;
-      z-index: 1;
-      animation: fadeInUp 1s ease;
+      margin-bottom: 1.5rem;
     }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #FFD700;
     }
-    .hero h1 {
-      font-size: 4rem;
+    input, textarea {
+      width: 100%;
+      padding: 0.9rem;
       margin-bottom: 1rem;
-      background: linear-gradient(90deg, var(--gold), var(--dark-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: 3px;
+      border: 1px solid #FFD700;
+      border-radius: 6px;
+      background: #2a2a2a;
+      color: #fff;
     }
-    .hero p {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      color: rgba(255, 255, 255, 0.9);
-    }
-    .cta-button {
-      display: inline-block;
-      padding: 1rem 3rem;
-      background: linear-gradient(45deg, var(--gold), var(--dark-gold));
-      color: var(--black);
-      text-decoration: none;
+    button {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(45deg, #FFD700, #B8860B);
+      border: none;
+      border-radius: 8px;
       font-weight: bold;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
-      position: relative;
-      overflow: hidden;
+      cursor: pointer;
+      color: #000;
     }
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 30px rgba(255, 215, 0, 0.5);
+    .message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+      display: none;
     }
-    section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
-    .section-title {
-      font-size: 3rem;
-      text-align: center;
-      margin-bottom: 3rem;
-      color: var(--gold);
-      position: relative;
-      padding-bottom: 1rem;
+    .success {
+      background: rgba(0, 128, 0, 0.2);
+      color: #b6fcb6;
+      display: block;
     }
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    .error {
+      background: rgba(255, 0, 0, 0.2);
+      color: #fdb6b6;
+      display: block;
     }
-    /* keep rest of CSS the same... */
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav id="navbar">
-    <div class="nav-container">
-      <a href="#home" class="logo">ZAMAAR</a>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#properties">Properties</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+  <div class="contact-container">
+    <h2>Contact Us</h2>
+    <form id="contactForm" action="https://formspree.io/f/mkgvykwd" method="POST">
+      <!-- Name -->
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required />
 
-  <!-- Hero Section -->
-  <section id="home" class="hero">
-    <div class="hero-content">
-      <h1>Welcome to Zamaar</h1>
-      <p>Your Gateway to Luxury Real Estate</p>
-      <a href="#properties" class="cta-button">Explore Properties</a>
-    </div>
-  </section>
+      <!-- Email -->
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="_replyto" required />
 
-  <!-- (keep About, Properties, Services sections the same) -->
+      <!-- Message -->
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" rows="6" required></textarea>
 
-  <!-- Contact Section -->
-  <section id="contact" class="contact">
-    <h2 class="section-title">Get In Touch</h2>
-    <div class="contact-container">
-      <div class="contact-info">
-        <h3 style="color: var(--gold); margin-bottom: 2rem;">Contact Information</h3>
-        <div class="contact-item">
-          <span class="contact-icon">📍</span>
-          <div><strong>Address:</strong><br>123 Luxury Avenue, Suite 100<br>Metropolitan City, MC 10001</div>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon">📞</span>
-          <div><strong>Phone:</strong><br>+1 (555) 123-4567</div>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon">✉️</span>
-          <div><strong>Email:</strong><br>info@zamaar.com</div>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon">🕒</span>
-          <div><strong>Office Hours:</strong><br>Mon-Fri: 9:00 AM - 6:00 PM<br>Sat: 10:00 AM - 4:00 PM</div>
-        </div>
-      </div>
+      <button type="submit">Send Message</button>
+    </form>
 
-      <div class="contact-form">
-        <h3 style="color: var(--gold); margin-bottom: 2rem;">Send Us a Message</h3>
-        <form id="contactForm" action="https://formspree.io/f/mkgvykwd" method="POST">
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="_replyto" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-          </div>
-          <button type="submit" class="submit-btn">Send Message</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer (unchanged) -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>Zamaar</h3>
-        <p style="color: rgba(255, 255, 255, 0.8); margin-top: 1rem;">Your trusted partner in luxury real estate. Building dreams, one property at a time.</p>
-      </div>
-      <div class="footer-section">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#properties">Properties</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Property Types</h3>
-        <ul>
-          <li><a href="#">Luxury Homes</a></li>
-          <li><a href="#">Penthouses</a></li>
-          <li><a href="#">Villas</a></li>
-          <li><a href="#">Commercial</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Follow Us</h3>
-        <ul>
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="#">Twitter</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2024 Zamaar Real Estate. All rights reserved. | Designed with luxury in mind.</p>
-    </div>
-  </footer>
+    <div id="status" class="message"></div>
+  </div>
 
   <script>
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("status");
 
-    // Navbar effect
-    window.addEventListener('scroll', function() {
-      const navbar = document.getElementById('navbar');
-      if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(0, 0, 0, 0.98)';
-        navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.5)';
-      } else {
-        navbar.style.background = 'linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 100%)';
-        navbar.style.boxShadow = 'none';
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: { Accept: "application/json" },
+        });
+        if (response.ok) {
+          status.className = "message success";
+          status.textContent = "✅ Thank you! Your message has been sent.";
+          form.reset();
+        } else {
+          status.className = "message error";
+          status.textContent = "❌ Oops! Something went wrong. Try again.";
+        }
+      } catch (error) {
+        status.className = "message error";
+        status.textContent = "❌ Network error. Please try again later.";
       }
-    });
-
-    // Animate sections
-    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('section').forEach(section => {
-      section.style.opacity = '0';
-      section.style.transform = 'translateY(20px)';
-      section.style.transition = 'all 0.6s ease';
-      observer.observe(section);
-    });
-
-    // Property card click
-    document.querySelectorAll('.property-card').forEach(card => {
-      card.addEventListener('click', function() {
-        alert('Contact us to schedule a viewing for this property!');
-      });
-    });
-
-    // Floating stats
-    document.querySelectorAll('.stat').forEach((stat, index) => {
-      stat.style.animationDelay = `${index * 0.1}s`;
-      stat.classList.add('floating');
     });
   </script>
 </body>
