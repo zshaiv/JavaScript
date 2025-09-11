@@ -445,6 +445,12 @@
             box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
         }
 
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Footer */
         footer {
             background: var(--black);
@@ -713,7 +719,7 @@
             </div>
             <div class="contact-form">
                 <h3 style="color: var(--gold); margin-bottom: 2rem;">Send Us a Message</h3>
-                <form id="contactForm">
+                <form action="https://formspree.io/f/mkgvykwd" method="POST" id="contactForm">
                     <div class="form-group">
                         <label for="name">Your Name</label>
                         <input type="text" id="name" name="name" required>
@@ -799,10 +805,7 @@
             }
         });
 
-        // Store form submissions (in a real app, this would be sent to a server)
-        let formSubmissions = [];
-
-        // Form submission handler
+        // Enhanced form submission handler for Formspree
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -810,38 +813,77 @@
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
-            const timestamp = new Date().toISOString();
+            const form = this;
             
-            // Create submission object
-            const submission = {
-                id: Date.now(),
-                name: name,
-                email: email,
-                message: message,
-                timestamp: timestamp,
-                status: 'new'
-            };
+            // Change button text to show loading
+            const submitBtn = form.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
             
-            // Store the submission
-            formSubmissions.push(submission);
+            // Create FormData object
+            const formData = new FormData(form);
             
-            // Log to console for development (remove in production)
-            console.log('New contact form submission:', submission);
-            console.log('All submissions:', formSubmissions);
-            
-            // Show success message
-            showSuccessMessage(name, email);
-            
-            // Reset form
-            this.reset();
-            
-            // In a real application, you would send this data to your server:
-            // sendToServer(submission);
+            // Submit to Formspree
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Success
+                    showSuccessMessage(name, email);
+                    form.reset();
+                } else {
+                    // Error from Formspree
+                    response.json().then(data => {
+                        if (data.errors) {
+                            showErrorMessage('Please check your form and try again.');
+                        } else {
+                            showErrorMessage('Oops! There was a problem submitting your form');
+                        }
+                    }).catch(() => {
+                        showErrorMessage('Oops! There was a problem submitting your form');
+                    });
+                }
+            })
+            .catch(error => {
+                // Network error
+                console.error('Error:', error);
+                showErrorMessage('Network error. Please check your connection and try again.');
+            })
+            .finally(() => {
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
         });
 
         // Success message function
         function showSuccessMessage(name, email) {
-            // Create success modal
+            showModal({
+                icon: '✓',
+                title: 'Message Sent Successfully!',
+                message: `Thank you, ${name}! We've received your message and will respond to ${email} within 24 hours.`,
+                type: 'success'
+            });
+        }
+
+        // Error message function
+        function showErrorMessage(errorText) {
+            showModal({
+                icon: '⚠️',
+                title: 'Submission Failed',
+                message: errorText,
+                type: 'error'
+            });
+        }
+
+        // Generic modal function
+        function showModal({ icon, title, message, type }) {
             const modal = document.createElement('div');
             modal.style.cssText = `
                 position: fixed;
@@ -857,11 +899,14 @@
             `;
             
             const modalContent = document.createElement('div');
+            const borderColor = type === 'success' ? 'var(--gold)' : '#ff4444';
+            const iconColor = type === 'success' ? 'var(--gold)' : '#ff4444';
+            
             modalContent.style.cssText = `
                 background: var(--dark-gray);
                 padding: 2rem;
                 border-radius: 15px;
-                border: 2px solid var(--gold);
+                border: 2px solid ${borderColor};
                 text-align: center;
                 max-width: 400px;
                 color: white;
@@ -869,9 +914,9 @@
             `;
             
             modalContent.innerHTML = `
-                <div style="color: var(--gold); font-size: 3rem; margin-bottom: 1rem;">✓</div>
-                <h3 style="color: var(--gold); margin-bottom: 1rem;">Message Sent Successfully!</h3>
-                <p style="margin-bottom: 1rem;">Thank you, ${name}! We've received your message and will respond to ${email} within 24 hours.</p>
+                <div style="color: ${iconColor}; font-size: 3rem; margin-bottom: 1rem;">${icon}</div>
+                <h3 style="color: ${iconColor}; margin-bottom: 1rem;">${title}</h3>
+                <p style="margin-bottom: 1rem;">${message}</p>
                 <button onclick="this.closest('.modal-overlay').remove()" style="
                     background: linear-gradient(45deg, var(--gold), var(--dark-gold));
                     color: var(--black);
@@ -888,57 +933,15 @@
             modal.appendChild(modalContent);
             document.body.appendChild(modal);
             
-            // Auto-close after 5 seconds
-            setTimeout(() => {
-                if (document.contains(modal)) {
-                    modal.remove();
-                }
-            }, 5000);
-        }
-
-        // Function to get all submissions (for admin purposes)
-        function getAllSubmissions() {
-            return formSubmissions;
-        }
-
-        // Function to export submissions as CSV (for admin purposes)
-        function exportSubmissionsCSV() {
-            if (formSubmissions.length === 0) {
-                alert('No submissions to export');
-                return;
+            // Auto-close after 5 seconds for success messages
+            if (type === 'success') {
+                setTimeout(() => {
+                    if (document.contains(modal)) {
+                        modal.remove();
+                    }
+                }, 5000);
             }
-            
-            const headers = ['ID', 'Name', 'Email', 'Message', 'Timestamp', 'Status'];
-            const csvContent = [
-                headers.join(','),
-                ...formSubmissions.map(sub => [
-                    sub.id,
-                    `"${sub.name}"`,
-                    sub.email,
-                    `"${sub.message.replace(/"/g, '""')}"`,
-                    sub.timestamp,
-                    sub.status
-                ].join(','))
-            ].join('\n');
-            
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `zamaar-contacts-${new Date().toISOString().split('T')[0]}.csv`;
-            a.click();
-            window.URL.revokeObjectURL(url);
         }
-
-        // Admin functions (call these in browser console)
-        window.zamaaarAdmin = {
-            getSubmissions: getAllSubmissions,
-            exportCSV: exportSubmissionsCSV,
-            clearSubmissions: () => {
-                formSubmissions = [];
-                console.log('All submissions cleared');
-            }
-        };
 
         // Animate elements on scroll
         const observerOptions = {
