@@ -98,6 +98,17 @@
             color: var(--gold);
         }
 
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
         /* Hero Section */
         .hero {
             height: 100vh;
@@ -116,6 +127,7 @@
             text-align: center;
             z-index: 1;
             animation: fadeInUp 1s ease;
+            padding: 0 1rem;
         }
 
         @keyframes fadeInUp {
@@ -158,11 +170,32 @@
             box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
             position: relative;
             overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .brochure-button {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(184, 134, 11, 0.2));
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .brochure-button:hover {
+            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
+            color: var(--black);
         }
 
         /* Sections */
@@ -502,30 +535,6 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
-            }
-
-            .about-content,
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-        }
-
         /* Animations */
         .fade-in {
             opacity: 0;
@@ -549,30 +558,325 @@
         .floating {
             animation: float 3s ease-in-out infinite;
         }
-        .cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
 
-.brochure-button {
-    background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(184, 134, 11, 0.2));
-    border: 2px solid var(--gold);
-    color: var(--gold);
-}
+        /* Enhanced Mobile Responsive Design */
+        @media (max-width: 768px) {
+            /* Navigation */
+            .nav-container {
+                padding: 0 1rem;
+            }
 
-.brochure-button:hover {
-    background: linear-gradient(45deg, var(--gold), var(--dark-gold));
-    color: var(--black);
-}
+            .logo {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
 
-@media (max-width: 768px) {
-    .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-}
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 2rem 0;
+                gap: 0;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                padding: 0.5rem 2rem;
+            }
+
+            .nav-links a {
+                padding: 1rem 0;
+                display: block;
+                text-align: center;
+                font-size: 1.1rem;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            /* Hero Section */
+            .hero {
+                min-height: 100vh;
+                height: auto;
+                padding: 8rem 1rem 4rem;
+            }
+
+            .hero-content {
+                max-width: 90%;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+                line-height: 1.2;
+                letter-spacing: 1px;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+                line-height: 1.4;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .cta-button {
+                padding: 1rem 2rem;
+                font-size: 0.9rem;
+                min-width: 200px;
+                text-align: center;
+            }
+
+            /* Sections */
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+                line-height: 1.2;
+            }
+
+            .section-title::after {
+                width: 80px;
+                height: 2px;
+            }
+
+            /* About Section */
+            .about {
+                padding: 2rem 1.5rem;
+                margin: 1rem 0;
+                border-radius: 15px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-text {
+                font-size: 1rem;
+                line-height: 1.6;
+                order: 1;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                order: 2;
+            }
+
+            .stat {
+                padding: 1.5rem 1rem;
+            }
+
+            .stat-number {
+                font-size: 1rem;
+                line-height: 1.3;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Services Section */
+            .services {
+                padding: 2rem 1.5rem;
+                margin: 1rem 0;
+                border-radius: 15px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .service-card {
+                padding: 1.5rem;
+            }
+
+            .service-icon {
+                font-size: 2.5rem;
+            }
+
+            .service-title {
+                font-size: 1.2rem;
+            }
+
+            .service-description {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+            /* Contact Section */
+            .contact {
+                padding: 3rem 1.5rem;
+                margin: 1rem 0;
+                border-radius: 15px;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-info {
+                padding: 0;
+            }
+
+            .contact-item {
+                margin-bottom: 1.5rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                text-align: left;
+            }
+
+            .contact-icon {
+                font-size: 1.3rem;
+            }
+
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                padding: 0.8rem;
+                font-size: 1rem;
+            }
+
+            .submit-btn {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+
+            /* Properties Section */
+            .property-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .property-card {
+                border-radius: 10px;
+            }
+
+            .property-image {
+                height: 180px;
+            }
+
+            .property-details {
+                padding: 1.2rem;
+            }
+
+            .property-price {
+                font-size: 1.5rem;
+            }
+
+            .property-features {
+                flex-direction: column;
+                gap: 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            /* Footer */
+            footer {
+                padding: 2rem 1rem 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .footer-section {
+                margin-bottom: 1rem;
+            }
+
+            .footer-bottom {
+                font-size: 0.9rem;
+                padding-top: 1.5rem;
+                line-height: 1.4;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                min-width: 180px;
+            }
+
+            .about {
+                padding: 1.5rem 1rem;
+            }
+
+            .services {
+                padding: 1.5rem 1rem;
+            }
+
+            .contact {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Landscape orientation adjustments */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero {
+                height: 100vh;
+                padding: 6rem 1rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Touch improvements for mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .cta-button:hover,
+            .property-card:hover,
+            .service-card:hover,
+            .stat:hover,
+            .submit-btn:hover {
+                transform: none;
+            }
+
+            .cta-button:active,
+            .submit-btn:active {
+                transform: scale(0.98);
+            }
+        }
     </style>
 </head>
 <body>
@@ -580,10 +884,10 @@
     <nav id="navbar">
         <div class="nav-container">
             <a href="#home" class="logo">ZAMAAR</a>
-            <ul class="nav-links">
+            <button class="mobile-menu-toggle" id="mobileToggle">☰</button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <!--<li><a href="#properties">Properties</a></li> -->
                 <li><a href="#services">Services</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -637,58 +941,6 @@ We combine the strength of global financial expertise with deep insights into th
         </div>
     </section>
 
-    <!-- Properties Section -->
-    <!--<section id="properties" class="properties">
-        <h2 class="section-title">Featured Properties</h2>
-        <div class="property-grid">
-            <div class="property-card">
-                <div class="property-image">
-                    <span class="property-badge">LUXURY</span>
-                </div>
-                <div class="property-details">
-                    <div class="property-price">$2,500,000</div>
-                    <div class="property-title">Modern Penthouse Suite</div>
-                    <div class="property-location">📍 Downtown District</div>
-                    <div class="property-features">
-                        <span>🛏️ 4 Beds</span>
-                        <span>🚿 3 Baths</span>
-                        <span>📐 3,500 sqft</span>
-                    </div>
-                </div>
-            </div>
-            <div class="property-card">
-                <div class="property-image">
-                    <span class="property-badge">EXCLUSIVE</span>
-                </div>
-                <div class="property-details">
-                    <div class="property-price">$4,200,000</div>
-                    <div class="property-title">Waterfront Villa</div>
-                    <div class="property-location">📍 Marina Bay</div>
-                    <div class="property-features">
-                        <span>🛏️ 6 Beds</span>
-                        <span>🚿 5 Baths</span>
-                        <span>📐 5,800 sqft</span>
-                    </div>
-                </div>
-            </div>
-            <div class="property-card">
-                <div class="property-image">
-                    <span class="property-badge">NEW</span>
-                </div>
-                <div class="property-details">
-                    <div class="property-price">$1,800,000</div>
-                    <div class="property-title">Contemporary Loft</div>
-                    <div class="property-location">📍 Arts Quarter</div>
-                    <div class="property-features">
-                        <span>🛏️ 3 Beds</span>
-                        <span>🚿 2 Baths</span>
-                        <span>📐 2,200 sqft</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    -->
     <!-- Services Section -->
     <section id="services" class="services">
         <h2 class="section-title">Our Services</h2>
@@ -790,22 +1042,9 @@ We combine the strength of global financial expertise with deep insights into th
                 </ul>
             </div>
             <div class="footer-section">
-                <!--
-                <h3>Property Types</h3>
-                <ul>
-                    <li><a href="#">Luxury Homes</a></li>
-                    <li><a href="#">Penthouses</a></li>
-                    <li><a href="#">Villas</a></li>
-                    <li><a href="#">Commercial</a></li>                </ul>
-            </div>
-        -->
-            <div class="footer-section">
                 <h3>Follow Us</h3>
                 <ul>
-                    <!--<li><a href="#">Facebook</a></li> -->
                     <li><a href="https://www.instagram.com/zamaar_estates/">Instagram</a></li>
-                    <!-- <li><a href="#">LinkedIn</a></li> -->
-                    <!-- <li><a href="#">Twitter</a></li> -->
                 </ul>
             </div>
         </div>
@@ -815,6 +1054,19 @@ We combine the strength of global financial expertise with deep insights into th
     </footer>
 
     <script>
+        // Mobile menu toggle
+        document.getElementById('mobileToggle').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -945,6 +1197,7 @@ We combine the strength of global financial expertise with deep insights into th
                 border: 2px solid ${borderColor};
                 text-align: center;
                 max-width: 400px;
+                margin: 0 1rem;
                 color: white;
                 animation: fadeInUp 0.3s ease;
             `;
@@ -1014,112 +1267,40 @@ We combine the strength of global financial expertise with deep insights into th
             stat.style.animationDelay = `${index * 0.1}s`;
             stat.classList.add('floating');
         });
-        // Brochure download functionality
-document.getElementById('downloadBrochure').addEventListener('click', function() {
-    // Create sample PDF content
-    const pdfContent = `%PDF-1.3
-1 0 obj
 
-/Type /Catalog
-/Pages 2 0 R
->>
-endobj
-2 0 obj
-
-/Type /Pages
-/Count 1
-/Kids [ 3 0 R ]
->>
-endobj
-3 0 obj
-
-/Type /Page
-/MediaBox [ 0 0 612 792 ]
-/Parent 2 0 R
-/Resources 
-/Font 4 0 R
->>
-/Contents 5 0 R
->>
-endobj
-4 0 obj
-
-/F1 6 0 R
->>
-endobj
-5 0 obj
-
-/Length 200
->>
-stream
-BT
-/F1 24 Tf
-72 720 Td
-(Zamaar Estates Brochure) Tj
-0 -36 Td
-(Your finance-backed Real Estate) Tj
-0 -36 Td
-(Delhi | Dubai) Tj
-0 -36 Td
-(Contact: +91 9953936502) Tj
-0 -36 Td
-(zamaarestates@gmail.com) Tj
-ET
-endstream
-endobj
-6 0 obj
-
-/Type /Font
-/BaseFont /Helvetica
-/Subtype /Type1
->>
-endobj
-xref
-0 7
-0000000000 65535 f 
-0000000009 00000 n 
-0000000058 00000 n 
-0000000115 00000 n 
-0000000245 00000 n 
-0000000273 00000 n 
-0000000525 00000 n 
-trailer
-
-/Size 7
-/Root 1 0 R
->>
-startxref
-595
-%%EOF`;
-
-    try {
-        // Create blob from PDF content
-        const byteCharacters = atob(btoa(pdfContent));
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray], {type: 'application/pdf'});
-        
-        // Create download link
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Zamaar-Estates-Brochure.pdf';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-        
-        // Show success message
-        alert('Brochure downloaded successfully!');
-        
-    } catch (error) {
-        console.error('Download error:', error);
-        alert('Sorry, there was an error downloading the brochure. Please try again.');
-    }
-});
+        // Brochure download functionality  
+        document.getElementById('downloadBrochure').addEventListener('click', function() {
+            try {
+                // Replace 'YOUR_PDF_BASE64_STRING_HERE' with your actual PDF base64 string
+                const pdfBase64 = 'JVBERi0xLjMKMSAwIG9iagoKL1R5cGUgL0NhdGFsb2cKL1BhZ2VzIDIgMCBSCj4+CmVuZG9iagoyIDAgb2JqCgovVHlwZSAvUGFnZXMKL0NvdW50IDEKL0tpZHMgWyAzIDAgUiBdCj4+CmVuZG9iagozIDAgb2JqCgovVHlwZSAvUGFnZQovTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdCi9QYXJlbnQgMiAwIFIKL1Jlc291cmNlcyAKL0ZvbnQgNCAwIFIKPj4KL0NvbnRlbnRzIDUgMCBSCj4+CmVuZG9iago0IDAgb2JqCgovRjEgNiAwIFIKPj4KZW5kb2JqCjUgMCBvYmoKCi9MZW5ndGggMjAwCj4+CnN0cmVhbQpCVAovRjEgMjQgVGYKNzIgNzIwIFRkCihaYW1hYXIgRXN0YXRlcyBCcm9jaHVyZSkgVGoKMCAtMzYgVGQKKFlvdXIgZmluYW5jZS1iYWNrZWQgUmVhbCBFc3RhdGUpIFRqCjAgLTM2IFRkCihEZWxoaSB8IER1YmFpKSBUagowIC0zNiBUZAooQ29udGFjdDogKzkxIDk5NTM5MzY1MDIpIFRqCjAgLTM2IFRkCih6YW1hYXJlc3RhdGVzQGdtYWlsLmNvbSkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iago2IDAgb2JqCgovVHlwZSAvRm9udAovQmFzZUZvbnQgL0hlbHZldGljYQovU3VidHlwZSAvVHlwZTEKPj4KZW5kb2JqCnhyZWYKMCA3CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAwOSAwMDAwMCBuIAowMDAwMDAwMDU4IDAwMDAwIG4gCjAwMDAwMDAxMTUgMDAwMDAgbiAKMDAwMDAwMDI0NSAwMDAwMCBuIAowMDAwMDAwMjczIDAwMDAwIG4gCjAwMDAwMDA1MjUgMDAwMDAgbiAKdHJhaWxlcgoKL1NpemUgNwovUm9vdCAxIDAgUgo+PgpzdGFydHhyZWYKNTk1CiUlRU9G';
+                
+                // Convert base64 to blob
+                const byteCharacters = atob(pdfBase64);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], {type: 'application/pdf'});
+                
+                // Create download link
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Zamaar-Estates-Brochure.pdf';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                
+                // Show success message
+                alert('Brochure downloaded successfully!');
+                
+            } catch (error) {
+                console.error('Download error:', error);
+                alert('Sorry, there was an error downloading the brochure. Please try again.');
+            }
+        });
     </script>
 </body>
 </html>
