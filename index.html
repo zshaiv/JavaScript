@@ -901,7 +901,11 @@
             <p>Your finance-backed Real Estate</p>
             <div class="cta-buttons">
                 <a href="#properties" class="cta-button">Explore Properties</a>
-                <button id="downloadBrochure" class="cta-button brochure-button">📁 Download Brochure</button>
+                <!-- Replaced button with a native download link (Method 1).
+                     Make sure to place the PDF at files/Zamaar-Estates-Brochure.pdf -->
+                <a href="Zamaar-Estates-Brochure.pdf" download="Zamaar-Estates-Brochure.pdf" class="cta-button brochure-button" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;">
+                    📁 Download Brochure
+                </a>
             </div>
         </div>
     </section>
@@ -1268,39 +1272,6 @@ We combine the strength of global financial expertise with deep insights into th
             stat.classList.add('floating');
         });
 
-        // Brochure download functionality  
-        document.getElementById('downloadBrochure').addEventListener('click', function() {
-            try {
-                // Replace 'YOUR_PDF_BASE64_STRING_HERE' with your actual PDF base64 string
-                const pdfBase64 = 'JVBERi0xLjMKMSAwIG9iagoKL1R5cGUgL0NhdGFsb2cKL1BhZ2VzIDIgMCBSCj4+CmVuZG9iagoyIDAgb2JqCgovVHlwZSAvUGFnZXMKL0NvdW50IDEKL0tpZHMgWyAzIDAgUiBdCj4+CmVuZG9iagozIDAgb2JqCgovVHlwZSAvUGFnZQovTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdCi9QYXJlbnQgMiAwIFIKL1Jlc291cmNlcyAKL0ZvbnQgNCAwIFIKPj4KL0NvbnRlbnRzIDUgMCBSCj4+CmVuZG9iago0IDAgb2JqCgovRjEgNiAwIFIKPj4KZW5kb2JqCjUgMCBvYmoKCi9MZW5ndGggMjAwCj4+CnN0cmVhbQpCVAovRjEgMjQgVGYKNzIgNzIwIFRkCihaYW1hYXIgRXN0YXRlcyBCcm9jaHVyZSkgVGoKMCAtMzYgVGQKKFlvdXIgZmluYW5jZS1iYWNrZWQgUmVhbCBFc3RhdGUpIFRqCjAgLTM2IFRkCihEZWxoaSB8IER1YmFpKSBUagowIC0zNiBUZAooQ29udGFjdDogKzkxIDk5NTM5MzY1MDIpIFRqCjAgLTM2IFRkCih6YW1hYXJlc3RhdGVzQGdtYWlsLmNvbSkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iago2IDAgb2JqCgovVHlwZSAvRm9udAovQmFzZUZvbnQgL0hlbHZldGljYQovU3VidHlwZSAvVHlwZTEKPj4KZW5kb2JqCnhyZWYKMCA3CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAwOSAwMDAwMCBuIAowMDAwMDAwMDU4IDAwMDAwIG4gCjAwMDAwMDAxMTUgMDAwMDAgbiAKMDAwMDAwMDI0NSAwMDAwMCBuIAowMDAwMDAwMjczIDAwMDAwIG4gCjAwMDAwMDA1MjUgMDAwMDAgbiAKdHJhaWxlcgoKL1NpemUgNwovUm9vdCAxIDAgUgo+PgpzdGFydHhyZWYKNTk1CiUlRU9G';
-                
-                // Convert base64 to blob
-                const byteCharacters = atob(pdfBase64);
-                const byteNumbers = new Array(byteCharacters.length);
-                for (let i = 0; i < byteCharacters.length; i++) {
-                    byteNumbers[i] = byteCharacters.charCodeAt(i);
-                }
-                const byteArray = new Uint8Array(byteNumbers);
-                const blob = new Blob([byteArray], {type: 'application/pdf'});
-                
-                // Create download link
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'Zamaar-Estates-Brochure.pdf';
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-                
-                // Show success message
-                alert('Brochure downloaded successfully!');
-                
-            } catch (error) {
-                console.error('Download error:', error);
-                alert('Sorry, there was an error downloading the brochure. Please try again.');
-            }
-        });
     </script>
 </body>
 </html>
