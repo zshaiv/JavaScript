@@ -1,2 +1,2 @@
 # JavaScript
-A code repo for JavaScript by soutrik
+A code repo for JavaScript by shaiv
